@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>토요타 라브4 풀체인지 - 영업사원 안내 Page</title>
+    <style>
+        :root {
+            --primary-color: #eb0a1e; /* 토요타 시그니처 레드 */
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --sub-text: #666666;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        /* 상단 프로필 헤더 */
+        .header-card {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            color: white;
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .profile-title {
+            font-size: 0.9rem;
+            color: #9ca3af;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .agent-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .agent-phone {
+            font-size: 1.1rem;
+            color: #f3f4f6;
+            margin-bottom: 16px;
+        }
+
+        .contact-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn {
+            flex: 1;
+            max-width: 150px;
+            padding: 10px 0;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s;
+        }
+
+        .btn-call {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-sms {
+            background-color: #374151;
+            color: white;
+        }
+
+        .btn:active {
+            opacity: 0.8;
+        }
+
+        /* 메인 컨테이너 */
+        .container {
+            padding: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 검색창 */
+        .search-box {
+            position: relative;
+            margin-top: 12px;
+            margin-bottom: 16px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 16px;
+            padding-left: 44px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            outline: none;
+            background-color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        /* 카테고리 탭 */
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .category-tabs::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .tab-btn {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            white-space: nowrap;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sub-text);
+            cursor: pointer;
+        }
+
+        .tab-btn.active {
+            background-color: #1f2937;
+            color: white;
+            border-color: #1f2937;
+        }
+
+        /* 아코디언 목록 */
+        .accordion-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .accordion-header {
+            padding: 16px;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            background-color: white;
+        }
+
+        .accordion-header .badge {
+            font-size: 0.75rem;
+            background-color: #f3f4f6;
+            color: #4b5563;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        .accordion-header .arrow {
+            transition: transform 0.3s ease;
+            color: #9ca3af;
+            font-size: 0.8rem;
+        }
+
+        .accordion-item.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #fafafa;
+            border-top: 1px solid transparent;
+        }
+
+        .accordion-item.active .accordion-content {
+            border-top-color: #f0f0f0;
+        }
+
+        .content-body {
+            padding: 16px;
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+
+        .content-body ul {
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+
+        .content-body li {
+            margin-bottom: 6px;
+        }
+
+        /* 표 스타일 (가격표 전용) */
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 0.85rem;
+        }
+
+        .price-table th, .price-table td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: center;
+        }
+
+        .price-table th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+        }
+
+        .price-table td:nth-child(2), .price-table td:nth-child(3) {
+            text-align: right;
+        }
+
+        .highlight {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .no-result {
+            text-align: center;
+            padding: 40px 0;
+            color: #9ca3af;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 상단 영업사원 프로필 -->
+    <header class="header-card">
+        <div class="profile-title">TOYOTA공식 영업사원</div>
+        <div class="agent-name">홍 길 동 카매니저</div>
+        <div class="agent-phone">010-1234-5678</div>
+        <div class="contact-btns">
+            <a href="tel:01012345678" class="btn btn-call">📞 전화하기</a>
+            <a href="sms:01012345678" class="btn btn-sms">💬 문자의뢰</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 실시간 검색창 -->
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" class="search-input" placeholder="궁금하신 내용이나 단어를 검색하세요...">
+        </div>
+
+        <!-- 카테고리 탭 -->
+        <div class="category-tabs">
+            <button class="tab-btn active" onclick="filterCategory('all')">전체보기</button>
+            <button class="tab-btn" onclick="filterCategory('price')">트림 & 가격</button>
+            <button class="tab-btn" onclick="filterCategory('specs')">편의사양/컬러</button>
+            <button class="tab-btn" onclick="filterCategory('schedule')">전시/시승</button>
+            <button class="tab-btn" onclick="filterCategory('faq')">자주 묻는 질문</button>
+            <button class="tab-btn" onclick="filterCategory('stock')">즉시출고 재고</button>
+        </div>
+
+        <!-- 아코디언 컨텐츠 목록 -->
+        <div id="accordionContainer">
+
+            <!-- 1. 트림 및 가격 -->
+            <div class="accordion-item" data-category="price">
+                <div class="accordion-header">
+                    <div><span class="badge">가격</span>1. 라브4 풀체인지 트림 및 가격</div>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-body">
+                        <p style="margin-bottom: 8px;">*(단위: 만원)*</p>
+                        <table class="price-table">
+                            <thead>
+                                <tr>
+                                    <th>트림</th>
+                                    <th>차량가격</th>
+                                    <th>세금포함 초가가격</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>하이브리드 2륜</td>
+                                    <td>4,927</td>
+                                    <td>5,263</td>
+                                </tr>
+                                <tr>
+                                    <td>하이브리드 4륜</td>
+                                    <td>5,746</td>
+                                    <td>6,139</td>
+                                </tr>
+                                <tr>
+                                    <td>플러그인 4륜</td>
+                                    <td>6,160</td>
+                                    <td>6,583</td>
+                                </tr>
+                                <tr>
+                                    <td>GR-S 스포츠</td>
+                                    <td>6,180</td>
+                                    <td>6,604</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 편의사양 차이 및 컬러 -->
+            <div class="accordion-item" data-category="specs">
+                <div class="accordion-header">
+                    <div><span class="badge">사양/컬러</span>2. 편의사양 차이 & 바디 컬러</div>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-body">
+                        <strong>[공통 기본 사양]</strong>
+                        <ul>
+                            <li>원격제어, e-call, 안드로이드 오토 및 애플 카플레이 (유무선 지원)</li>
+                            <li>핸들 열선, 레인 센서, 디스플레이, 운전자 모니터링 카메라, PDA</li>
+                            <li>12.9인치 디스플레이, 12.3인치 계기판</li>
+                        </ul>
+                        <br>
+                        <strong>[트림별 추가 사양]</strong>
+                        <ul>
+                            <li><strong>2륜:</strong> 앞좌석 열선</li>
+                            <li><strong>4륜 및 플러그인 4륜:</strong> 헤드업 디스플레이(HUD), 파노라믹 뷰(어라운드 뷰), 45W C타입 급속 충전 포트</li>
+                            <li><strong>GR-S 스포츠:</strong> 전용튜닝파츠(퍼포먼스댐퍼, 보강파츠, 전용서스펜션튜닝), 경량알로이휠</li>
+                        </ul>
+                        <br>
+                        <strong>[바디 컬러 안내]</strong>
+                        <ul>
+                            <li><strong>깔끔한 모노톤:</strong> 화이트 펄, 슈퍼 화이트, 블랙, 메시브 그레이</li>
+                            <li><strong>오프로드 감성:</strong> 어반락, 아방가르드브론즈, 에베레스트, 다크 블루, 레드</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 전시 및 시승 일정 -->
+            <div class="accordion-item" data-category="schedule">
+                <div class="accordion-header">
+                    <div><span class="badge">일정</span>3. 전시 및 시승 차량 일정</div>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-body">
+                        <strong style="color: #111827;">📅 6월 16일부터 볼 수 있는 차량 (서초전시장)</strong>
+                        <ul>
+                            <li>4륜: 아방가르드 브론즈 / 블랙 시트</li>
+                            <li>플러그인: 메시브 그레이 / 블랙 시트</li>
+                        </ul>
+                        <br>
+                        <strong style="color: #111827;">🚘 6월 22일부터 볼 수 있는 차량 (시승차량)</strong>
+                        <ul>
+                            <li>2륜: 슈퍼 화이트 / 블랙 시트</li>
+                            <li>4륜: 메시브 그레이 / 네츄럴 베이지 시트</li>
+                            <li>플러그인: 화이트펄 / 블랙 시트</li>
+                            <li>GR-S: 블랙&화이트 / 블랙 시트</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 자주 묻는 질문 (Q&A) -->
+            <div class="accordion-item" data-category="faq">
+                <div class="accordion-header">
+                    <div><span class="badge">Q&A</span>4. 어떤 등급이 가장 좋은 선택일까요?</div>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-body">
+                        <ul>
+                            <li><strong>2륜 하이브리드:</strong> 극강의 연비와 합리적인 가격을 선호하시는 분 (안전 사양은 전 등급 동일)</li>
+                            <li><strong>4륜 하이브리드:</strong> 옵션 및 편의사양이 중요한 패밀리카를 선호하시는 분</li>
+                            <li><strong>플러그인 하이브리드:</strong> 집이나 회사에 전기충전소가 구비되어 있고, 고성능 차량을 선호하시는 분</li>
+                            <li><strong>GR-S 플러그인 하이브리드:</strong> 운전의 재미를 느낄 수 있는 스포티한 주행 감성과 차별화된 디자인을 선호하시는 분</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item" data-category="faq">
+                <div class="accordion-header">
+                    <div><span class="badge">Q&A</span>Q. 타 브랜드 대비 토요타 하이브리드 선택 이유?</div>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-body">
+                        <ul>
+                            <li>등급과 상관없이 <span class="highlight">최신 상위 버전의 안전 사양이 전 트림 기본 탑재</span>되어 있습니다.</li>
+                            <li>유지비 및 차량 관리 측면에서 <span class="highlight">스트레스 제로(0)</span>를 경험하실 수 있습니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item" data-category="faq">
+                <div class="accordion-header">
+                    <div><span class="badge">Q&A</span>Q. 플러그인 차 전기차 전용 구역 주차 시간?</div>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-body">
+                        <p><strong>7시간 주차 가능하며, 00시~06시까지는 제외됩니다.</strong><br>(즉, 저녁 7시 주차 시 아침 8시까지 가능합니다.)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item" data-category="faq">
+                <div class="accordion-header">
+                    <div><span class="badge">Q&A</span>Q. 디지털키로 물리키 없이 주행이 가능한가요?</div>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-body">
+                        <p><span class="highlight">안됩니다.</span> 토요타 리모트 어플로만 차량의 원격시동, 에어컨 켜기, 차량 상태 확인, 도어 및 창문 제어까지 가능하며 <strong style="color: #eb0a1e;">스마트키 없이는 주행 불가능</strong>합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item" data-category="faq">
+                <div class="accordion-header">
+                    <div><span class="badge">Q&A</span>Q. 플러그인 급속충전 속도 및 주행거리?</div>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-body">
+                        <p><strong>30분 충전으로 80%까지 충전</strong>되며, 100% 충전 시 <strong style="color: #eb0a1e;">약 77km 주행이 가능</strong>합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item" data-category="faq">
+                <div class="accordion-header">
+                    <div><span class="badge">Q&A</span>Q. 운전자 모니터링 시스템(DMC) 작동 방식?</div>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-body">
+                        <p>운전자 이상상태가 3초 이상 지속 시:</p>
+                        <ul>
+                            <li><strong>1차 경고:</strong> 디스플레이 + 부저 1회</li>
+                            <li><strong>2차 경고:</strong> 6초 이상 지속 시 디스플레이 + 부저 지속</li>
+                        </ul>
+                        <p style="margin-top: 8px;">운전자 반응이 없는 상태 유지 시 경고는 지속되지만 <span class="highlight">제동 기능은 지원되지 않습니다.</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 재고 현황 -->
+            <div class="accordion-item" data-category="stock">
+                <div class="accordion-header">
+                    <div><span class="badge" style="background:#fee2e2; color:#b91c1c;">재고</span>5. 가장 빠르게 출고 가능한 차량 (6월 즉시 출고)</div>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-body">
+                        <strong>■ 하이브리드 2륜</strong>
+                        <ul>
+                            <li>색상별 5대 미만 (6월 출고 가능)</li>
+                        </ul>
+                        <br>
+                        <strong>■ 하이브리드 4륜</strong>
+                        <ul>
+                            <li>레드 / 베이지 시트: <strong>1대</strong></li>
+                            <li>메시브 그레이 / 블랙 시트: <strong>5대 미만</strong></li>
+                            <li>에베레스트 / 베이지 시트: <strong>1대</strong></li>
+                            <li>화이트 펄 / 블랙 시트: <strong>8대</strong></li>
+                        </ul>
+                        <br>
+                        <strong>■ 플러그인 하이브리드</strong>
+                        <ul>
+                            <li>메시브 그레이 / 블랙 시트: <strong>2대</strong></li>
+                            <li>화이트 펄 / 블랙 시트: <strong>1대</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="noResult" class="no-result">
+            검색 결과가 없습니다. 다른 단어로 검색해 보세요.
+        </div>
+    </div>
+
+    <script>
+        // 아코디언 개폐 스크립트
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const content = item.querySelector('.accordion-content');
+
+                // 이미 열려있는 경우 닫기
+                if (item.classList.contains('active')) {
+                    item.classList.remove('active');
+                    content.style.maxHeight = null;
+                } else {
+                    // 선택한 것 열기
+                    item.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        });
+
+        // 카테고리 필터링
+        function filterCategory(category) {
+            // 탭 버튼 스타일 전환
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // 검색창 초기화
+            document.getElementById('searchInput').value = '';
+
+            const items = document.querySelectorAll('.accordion-item');
+            let hasVisible = false;
+
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                    hasVisible = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            document.getElementById('noResult').style.display = hasVisible ? 'none' : 'block';
+        }
+
+        // 실시간 검색 기능
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            const items = document.querySelectorAll('.accordion-item');
+            let hasVisible = false;
+
+            // 검색 시 전체 탭 스타일로 전환 느낌 제공
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttons[0].classList.add('active'); // '전체보기' 활성화
+
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    item.style.display = 'block';
+                    hasVisible = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            document.getElementById('noResult').style.display = hasVisible ? 'none' : 'block';
+        });
+    </script>
+</body>
+</html>
