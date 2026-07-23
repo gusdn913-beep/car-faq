@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚗 신차 구매 가이드 & FAQ | 김현우 과장</title>
+    <title>🚗 토요타 전차종 가이드 & FAQ | 김현우 과장</title>
 
-    <!-- Open Graph / 카카오톡 미리보기 카드 설정 -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="🚗 김현우 과장 | 신차 구매 안내 FAQ">
-    <meta property="og:description" content="계약 서류, 결제/금융 조건, 출고 및 라브4 상세 정보까지 한눈에 확인하세요!">
+    <meta property="og:title" content="🚗 김현우 과장 | 토요타 전차종 구매 가이드 & FAQ">
+    <meta property="og:description" content="차량 출고 FAQ부터 토요타 전 차종 트림, 가격, 컬러, 즉시출고 재고까지 한눈에 확인하세요!">
     <meta property="og:image" content="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1200&auto=format&fit=crop">
-    <meta property="og:url" content="https://your-id.github.io/car-faq/">
 
     <style>
         :root {
@@ -40,7 +38,7 @@
         }
 
         .container {
-            max-width: 640px;
+            max-width: 680px;
             margin: 0 auto;
             background-color: #ffffff;
             min-height: 100vh;
@@ -51,7 +49,7 @@
         header {
             background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
             color: #ffffff;
-            padding: 32px 20px 24px 20px;
+            padding: 28px 20px 20px 20px;
             text-align: center;
         }
 
@@ -61,20 +59,20 @@
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.85rem;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             font-weight: 500;
         }
 
         header h1 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         header p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             opacity: 0.9;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         /* 빠른 연락처 카드 */
@@ -82,7 +80,7 @@
             background-color: #ffffff;
             color: var(--text-dark);
             border-radius: 12px;
-            padding: 16px;
+            padding: 12px;
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -96,17 +94,17 @@
             text-decoration: none;
             color: var(--primary-color);
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .contact-btn span.icon {
-            font-size: 1.4rem;
-            margin-bottom: 4px;
+            font-size: 1.2rem;
+            margin-bottom: 2px;
         }
 
         /* 검색창 */
         .search-container {
-            padding: 20px;
+            padding: 16px 20px;
             background-color: #ffffff;
             position: sticky;
             top: 0;
@@ -116,10 +114,10 @@
 
         .search-box {
             width: 100%;
-            padding: 12px 16px;
+            padding: 10px 14px;
             border: 2px solid var(--border-color);
             border-radius: 10px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             outline: none;
             transition: all 0.2s;
         }
@@ -129,49 +127,91 @@
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        /* 카테고리 태그 */
-        .category-tags {
+        /* 3-Depth 카테고리 필터 영역 */
+        .filter-wrapper {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .filter-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            padding: 8px 20px 4px 20px;
+            text-transform: uppercase;
+        }
+
+        /* Depth 1: 대분류 (차종 및 출고 FAQ) */
+        .depth1-tags {
             display: flex;
-            gap: 8px;
-            padding: 0 20px 16px 20px;
+            gap: 6px;
+            padding: 0 20px 8px 20px;
             overflow-x: auto;
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
         }
+        .depth1-tags::-webkit-scrollbar { display: none; }
 
-        .category-tags::-webkit-scrollbar {
-            display: none;
-        }
-
-        .tag-btn {
-            padding: 8px 14px;
-            background-color: var(--bg-gray);
+        .d1-btn {
+            padding: 6px 12px;
+            background-color: #f3f4f6;
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
+            border-radius: 8px;
+            font-size: 0.82rem;
+            color: var(--text-dark);
             cursor: pointer;
-            transition: all 0.2s;
             flex-shrink: 0;
+            font-weight: 500;
         }
 
-        .tag-btn.active {
+        .d1-btn.active {
             background-color: var(--primary-color);
             color: #ffffff;
             border-color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Depth 2: 중분류 (서류/금융/트림/컬러 등) */
+        .depth2-tags {
+            display: flex;
+            gap: 6px;
+            padding: 0 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .depth2-tags::-webkit-scrollbar { display: none; }
+
+        .d2-btn {
+            padding: 5px 10px;
+            background-color: #ffffff;
+            border: 1px dashed var(--accent-color);
+            border-radius: 16px;
+            font-size: 0.78rem;
+            color: var(--accent-color);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .d2-btn.active {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border-style: solid;
             font-weight: 600;
         }
 
-        /* FAQ 목록 */
+        /* FAQ 목록 (Depth 3: 소분류 상세 콘텐츠) */
         .faq-section {
-            padding: 0 20px 20px 20px;
+            padding: 16px 20px;
         }
 
         .faq-item {
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             overflow: hidden;
             background-color: #ffffff;
             transition: border-color 0.2s;
@@ -182,34 +222,29 @@
         }
 
         .faq-question {
-            padding: 16px;
+            padding: 14px 16px;
             font-weight: 600;
-            font-size: 0.98rem;
+            font-size: 0.92rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             user-select: none;
-            background-color: #ffffff;
-        }
-
-        .faq-question .q-tag {
-            color: var(--accent-color);
-            margin-right: 6px;
         }
 
         .badge-cat {
-            font-size: 0.75rem;
-            background-color: #f3f4f6;
-            color: #4b5563;
-            padding: 2px 8px;
+            font-size: 0.72rem;
+            background-color: #eff6ff;
+            color: var(--accent-color);
+            padding: 2px 6px;
             border-radius: 4px;
-            margin-right: 8px;
-            font-weight: normal;
+            margin-right: 6px;
+            font-weight: 600;
+            border: 1px solid #bfdbfe;
         }
 
         .faq-question .arrow {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             transition: transform 0.3s;
         }
@@ -223,21 +258,20 @@
             overflow: hidden;
             transition: max-height 0.3s ease-out;
             background-color: var(--primary-light);
-            border-top: 1px solid transparent;
         }
 
         .faq-item.active .faq-answer {
-            border-top-color: var(--border-color);
+            border-top: 1px solid var(--border-color);
         }
 
         .faq-answer-content {
-            padding: 16px;
-            font-size: 0.92rem;
+            padding: 14px 16px;
+            font-size: 0.88rem;
             color: #374151;
         }
 
         .faq-answer-content ul {
-            padding-left: 20px;
+            padding-left: 18px;
             margin-top: 6px;
         }
 
@@ -245,28 +279,23 @@
             margin-bottom: 4px;
         }
 
-        /* 가격표 전용 테이블 스타일 */
         .price-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 8px;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             background-color: #ffffff;
         }
 
         .price-table th, .price-table td {
             border: 1px solid var(--border-color);
-            padding: 8px;
+            padding: 6px;
             text-align: center;
         }
 
         .price-table th {
             background-color: #f3f4f6;
             font-weight: 600;
-        }
-
-        .price-table td:nth-child(2), .price-table td:nth-child(3) {
-            text-align: right;
         }
 
         .highlight {
@@ -283,8 +312,8 @@
 
         footer {
             text-align: center;
-            padding: 24px;
-            font-size: 0.8rem;
+            padding: 20px;
+            font-size: 0.78rem;
             color: var(--text-muted);
             border-top: 1px solid var(--border-color);
             background-color: #ffffff;
@@ -294,355 +323,334 @@
 <body>
 
 <div class="container">
-    <!-- 헤더 영역 -->
+    <!-- 헤더 -->
     <header>
         <span class="badge-header">공식 카마스터</span>
-        <h1>🚗 김현우 과장 FAQ</h1>
-        <p>신차 계약부터 인도 및 라브4 상세 정보까지 한눈에!</p>
+        <h1>🚗 김현우 과장 가이드</h1>
+        <p>차종별 정보 및 출고 FAQ를 한눈에 확인하세요!</p>
 
-        <!-- 빠르게 연락하기 버튼 -->
         <div class="contact-box">
-            <a href="tel:010-0000-0000" class="contact-btn">
+            <a href="tel:010-8501-9613" class="contact-btn">
                 <span class="icon">📞</span>
                 <span>전화 문의</span>
             </a>
-            <a href="sms:010-0000-0000" class="contact-btn">
+            <a href="sms:010-8501-9613" class="contact-btn">
                 <span class="icon">💬</span>
-                <span>문자 남기기</span>
+                <span>문자 문의</span>
             </a>
-            <a href="https://open.kakao.com/" target="_blank" class="contact-btn">
+            <a href="https://open.kakao.com/o/sT3VlUpb" target="_blank" class="contact-btn">
                 <span class="icon">💛</span>
-                <span>카톡 오픈채팅</span>
+                <span>카톡 상담</span>
             </a>
         </div>
     </header>
 
     <!-- 검색창 -->
     <div class="search-container">
-        <input type="text" id="searchInput" class="search-box" placeholder="🔍 궁금한 키워드를 검색해보세요 (예: 서류, 가격, 충전)">
+        <input type="text" id="searchInput" class="search-box" placeholder="🔍 궁금한 단어를 입력하세요 (예: 라브4, 서류, 캐시백)">
     </div>
 
-    <!-- 카테고리 필터 -->
-    <div class="category-tags">
-        <button class="tag-btn active" onclick="filterCategory('all')">전체</button>
-        <button class="tag-btn" onclick="filterCategory('서류/계약')">📝 서류/계약</button>
-        <button class="tag-btn" onclick="filterCategory('금융/결제')">💳 금융/결제</button>
-        <button class="tag-btn" onclick="filterCategory('출고/인도')">🚙 출고/인도</button>
-        <button class="tag-btn" onclick="filterCategory('트림/가격')">🏷️ 트림/가격</button>
-        <button class="tag-btn" onclick="filterCategory('사양/컬러')">🎨 사양/컬러</button>
-        <button class="tag-btn" onclick="filterCategory('전시/시승')">📅 전시/시승</button>
-        <button class="tag-btn" onclick="filterCategory('즉시출고')">📦 즉시출고</button>
+    <!-- 3-Depth 필터 시스템 -->
+    <div class="filter-wrapper">
+        <!-- Depth 1: 대분류 선택 -->
+        <div class="filter-title">STEP 1. 메뉴 / 차종 선택</div>
+        <div class="depth1-tags" id="depth1Container">
+            <button class="d1-btn active" onclick="selectDepth1('all')">전체보기</button>
+            <button class="d1-btn" onclick="selectDepth1('qna')">📋 차량출고 Q&A</button>
+            <button class="d1-btn" onclick="selectDepth1('rav4')">🚙 라브4 (RAV4)</button>
+            <button class="d1-btn" onclick="selectDepth1('crown')">👑 크라운 (CROWN)</button>
+            <button class="d1-btn" onclick="selectDepth1('camry')">🚗 캠리 (CAMRY)</button>
+            <button class="d1-btn" onclick="selectDepth1('alphard')">🚐 알파드 (ALPHARD)</button>
+            <button class="d1-btn" onclick="selectDepth1('highlander')">⛰️ 하이랜더</button>
+            <button class="d1-btn" onclick="selectDepth1('sienna')">🚐 시에나 (SIENNA)</button>
+            <button class="d1-btn" onclick="selectDepth1('prius')">⚡ 프리우스 (PRIUS)</button>
+            <button class="d1-btn" onclick="selectDepth1('gr86')">🏎️ GR86</button>
+        </div>
+
+        <!-- Depth 2: 중분류 선택 (Depth 1 선택에 따라 동적 변경) -->
+        <div class="filter-title">STEP 2. 세부 카테고리</div>
+        <div class="depth2-tags" id="depth2Container">
+            <!-- JS로 버튼이 동적 생성됩니다 -->
+        </div>
     </div>
 
-    <!-- Q&A 목록 -->
+    <!-- Depth 3: FAQ 및 설명글 목록 -->
     <div class="faq-section" id="faqSection">
 
-        <!-- [Q&A 항목 1] -->
-        <div class="faq-item" data-category="서류/계약">
+        <!-- ==================== 1. 차량출고 Q&A ==================== -->
+        <!-- [1-1. 서류/계약] -->
+        <div class="faq-item" data-d1="qna" data-d2="서류/계약">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span><strong class="q-tag">Q.</strong> 계약 시 준비해야 할 필수 서류는 무엇인가요?</span>
+                <span><span class="badge-cat">서류/계약</span> Q. 계약 시 준비해야 할 필수 서류는?</span>
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    개인명의 계약 기준 필수 준비 서류는 다음과 같습니다.<br><br>
-                    1. <strong>신분증 복사본</strong> (운전면허증 또는 주민등록증)<br>
-                    2. <strong>계약금</strong> (본인 명의 계좌 입금)<br>
-                    3. <strong>주민등록등본 1부</strong> (공동명의 진행 시 필요)<br><br>
-                    * 법인 및 사업자 명의 계약 시 필요한 서류는 별도로 안내해 드립니다.
+                    개인명의 계약 기준 필수 준비 서류입니다.<br><br>
+                    1. <strong>신분증 사진</strong> (운전면허증/주민등록증)<br>
+                    2. <strong>이메일주소</strong><br>
+                    3. <strong>주민등록등본 1부</strong> (공동명의 시 필요)<br><br>
+                    * 법인/개인사업자 계약 서류는 별도 문의 부탁드립니다.
                 </div>
             </div>
         </div>
 
-        <!-- [Q&A 항목 2] -->
-        <div class="faq-item" data-category="금융/결제">
+        <!-- [1-2. 금융/결제] -->
+        <div class="faq-item" data-d1="qna" data-d2="금융/결제">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span><strong class="q-tag">Q.</strong> 카드 오토캐시백 혜택은 어떻게 신청하나요?</span>
+                <span><span class="badge-cat">금융/결제</span> Q. 카드 오토캐시백은 어떻게 신청하나요?</span>
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    차량 잔금 결제 시 신용카드를 사용하시면 최대 캐시백 혜택을 받으실 수 있습니다.<br><br>
-                    - 결제 전 제휴 금융사/카드사를 통한 이벤트 등록이 필수입니다.<br>
-                    - 일시불 및 할부 비율에 따라 캐시백율이 달라지므로, 결제 2~3일 전 말씀해주시면 가장 혜택이 높은 조건으로 안내해 드립니다.
+                    잔금 결제 시 신용카드를 사용하시면 최대 캐시백을 받으실 수 있습니다.<br>
+                    - 결제 2~3일 전 말씀해 주시면 당월 최대 혜택 카드사를 안내 및 선등록 해드립니다.
                 </div>
             </div>
         </div>
 
-        <!-- [Q&A 항목 3] -->
-        <div class="faq-item" data-category="출고/인도">
+        <!-- [1-3. 출고/인도] -->
+        <div class="faq-item" data-d1="qna" data-d2="출고/인도">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span><strong class="q-tag">Q.</strong> 차량 납기 일정 및 예시일은 어디서 확인하나요?</span>
+                <span><span class="badge-cat">출고/인도</span> Q. 신차 검수 및 작업 진행 과정은?</span>
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    차량 생산 및 출고 일정은 매월 초 전산 배정 결과에 따라 안내드립니다.<br><br>
-                    - 계약 순번 및 옵션/색상 조합에 따라 납기일이 변동될 수 있습니다.<br>
-                    - 생산이 완료되면 담당 카마스터가 직접 연락드려 정확한 인수 예정일을 조율해 드립니다.
+                    차량이 시공점에 도착하면 전문 검수 후 실물 사진을 고객님께 전송해 드립니다.<br>
+                    이상 없을 확인 후 틴팅(썬팅) 및 블랙박스 작업을 진행합니다.
                 </div>
             </div>
         </div>
 
-        <!-- [Q&A 항목 4] -->
-        <div class="faq-item" data-category="출고/인도">
+        <!-- ==================== 2. 라브4 (RAV4) ==================== -->
+        <!-- [2-1. 트림/가격] -->
+        <div class="faq-item" data-d1="rav4" data-d2="트림/가격">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span><strong class="q-tag">Q.</strong> 신차 검수 및 기본 작업(썬팅/블랙박스)은 어떻게 진행되나요?</span>
+                <span><span class="badge-cat">RAV4</span> 라브4 풀체인지 트림 및 가격표</span>
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    차량이 썬팅 샵(시공점)으로 탁송되면 전문 검수관과 담당자가 함께 신차 검수를 진행합니다.<br><br>
-                    1. 외관 도장 상태, 단차, 내부 가죽 시트 inspection<br>
-                    2. 전자 장비 및 스마트키 작동 여부 점검<br>
-                    3. 이상 없을 시 검수 사진 전송 후 협의된 틴팅(썬팅) 및 블랙박스 작업을 진행합니다.
-                </div>
-            </div>
-        </div>
-
-        <!-- [라브4 항목 1] -->
-        <div class="faq-item" data-category="트림/가격">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="badge-cat">라브4</span> 라브4 풀체인지 트림 및 가격 안내</span>
-                <span class="arrow">▼</span>
-            </div>
-            <div class="faq-answer">
-                <div class="faq-answer-content">
-                    <p style="margin-bottom: 8px;">*(단위: 만원)*</p>
+                    <p>*(단위: 만원)*</p>
                     <table class="price-table">
                         <thead>
                             <tr>
                                 <th>트림</th>
-                                <th>차량가격</th>
-                                <th>세금포함 초가가격</th>
+                                <th>차량가</th>
+                                <th>세금포함(예상)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>하이브리드 2륜</td>
-                                <td>4,927</td>
-                                <td>5,263</td>
-                            </tr>
-                            <tr>
-                                <td>하이브리드 4륜</td>
-                                <td>5,746</td>
-                                <td>6,139</td>
-                            </tr>
-                            <tr>
-                                <td>플러그인 4륜</td>
-                                <td>6,160</td>
-                                <td>6,583</td>
-                            </tr>
-                            <tr>
-                                <td>GR-S 스포츠</td>
-                                <td>6,180</td>
-                                <td>6,604</td>
-                            </tr>
+                            <tr><td>하이브리드 2WD</td><td>4,990</td><td>별도문의</td></tr>
+                            <tr><td>하이브리드 4WD</td><td>5,820</td><td>별도문의</td></tr>
+                            <tr><td>PHEV 4WD</td><td>6,250</td><td>별도문의</td></tr>
+                            <tr><td>GR-S 스포츠</td><td>6,270</td><td>별도문의</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- [라브4 항목 2] -->
-        <div class="faq-item" data-category="사양/컬러">
+        <!-- [2-2. 사양/컬러] -->
+        <div class="faq-item" data-d1="rav4" data-d2="사양/컬러">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="badge-cat">라브4</span> 편의사양 차이 & 바디 컬러</span>
+                <span><span class="badge-cat">RAV4</span> 편의사양 차이 & 바디 컬러 안내</span>
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <strong>[공통 기본 사양]</strong>
-                    <ul>
-                        <li>원격제어, e-call, 안드로이드 오토 및 애플 카플레이 (유무선 지원)</li>
-                        <li>핸들 열선, 레인 센서, 디스플레이, 운전자 모니터링 카메라, PDA</li>
-                        <li>12.9인치 디스플레이, 12.3인치 계기판</li>
-                    </ul>
-                    <br>
-                    <strong>[트림별 추가 사양]</strong>
-                    <ul>
-                        <li><strong>2륜:</strong> 앞좌석 열선</li>
-                        <li><strong>4륜 및 플러그인 4륜:</strong> 헤드업 디스플레이(HUD), 파노라믹 뷰(어라운드 뷰), 45W C타입 급속 충전 포트</li>
-                        <li><strong>GR-S 스포츠:</strong> 전용튜닝파츠(퍼포먼스댐퍼, 보강파츠, 전용서스펜션튜닝), 경량알로이휠</li>
-                    </ul>
-                    <br>
-                    <strong>[바디 컬러 안내]</strong>
-                    <ul>
-                        <li><strong>깔끔한 모노톤:</strong> 화이트 펄, 슈퍼 화이트, 블랙, 메시브 그레이</li>
-                        <li><strong>오프로드 감성:</strong> 어반락, 아방가르드브론즈, 에베레스트, 다크 블루, 레드</li>
-                    </ul>
+                    <strong>[기본 사양]</strong> 12.9인치 디스플레이, 12.3인치 계기판, 핸들열선, 원격제어<br>
+                    <strong>[4WD 추가]</strong> HUD(헤드업 디스플레이), 어라운드뷰, 45W C타입 급속충전<br>
+                    <strong>[GR-S 추가]</strong> 퍼포먼스 댐퍼, 전용 서스펜션, 경량 휠<br><br>
+                    <strong>[인기 컬러]</strong> 화이트 펄, 블랙, 메시브 그레이, 어반락, 에베레스트
                 </div>
             </div>
         </div>
 
-        <!-- [라브4 항목 3] -->
-        <div class="faq-item" data-category="전시/시승">
+        <!-- [2-3. 전시/시승] -->
+        <div class="faq-item" data-d1="rav4" data-d2="전시/시승">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="badge-cat">라브4</span> 전시 및 시승 차량 일정</span>
+                <span><span class="badge-cat">RAV4</span> 전시차 및 시승차 일정</span>
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <strong>📅 6월 16일부터 볼 수 있는 차량 (서초전시장)</strong>
-                    <ul>
-                        <li>4륜: 아방가르드 브론즈 / 블랙 시트</li>
-                        <li>플러그인: 메시브 그레이 / 블랙 시트</li>
-                    </ul>
-                    <br>
-                    <strong>🚘 6월 22일부터 볼 수 있는 차량 (시승차량)</strong>
-                    <ul>
-                        <li>2륜: 슈퍼 화이트 / 블랙 시트</li>
-                        <li>4륜: 메시브 그레이 / 네츄럴 베이지 시트</li>
-                        <li>플러그인: 화이트펄 / 블랙 시트</li>
-                        <li>GR-S: 블랙&화이트 / 블랙 시트</li>
-                    </ul>
+                    - <strong>전시장 배치:</strong> 서초전시장 4WD / PHEV 실물 전시 중<br>
+                    - <strong>시승 운영:</strong> 2WD, 4WD, PHEV, GR-S 전 트림 시승 가능 (사전 예약 필수)
                 </div>
             </div>
         </div>
 
-        <!-- [라브4 항목 4] -->
-        <div class="faq-item" data-category="서류/계약">
+        <!-- [2-4. 즉시출고] -->
+        <div class="faq-item" data-d1="rav4" data-d2="즉시출고">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="badge-cat">라브4</span> Q. 어떤 등급이 가장 좋은 선택일까요?</span>
+                <span><span class="badge-cat">RAV4</span> RAV4 즉시 출고 가능 재고 현황</span>
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <ul>
-                        <li><strong>2륜 하이브리드:</strong> 극강의 연비와 합리적인 가격을 선호하시는 분 (안전 사양은 전 등급 동일)</li>
-                        <li><strong>4륜 하이브리드:</strong> 옵션 및 편의사양이 중요한 패밀리카를 선호하시는 분</li>
-                        <li><strong>플러그인 하이브리드:</strong> 집이나 회사에 전기충전소가 구비되어 있고, 고성능 차량을 선호하시는 분</li>
-                        <li><strong>GR-S 플러그인 하이브리드:</strong> 운전의 재미를 느낄 수 있는 스포티한 주행 감성과 차별화된 디자인을 선호하시는 분</li>
-                    </ul>
+                    - <strong>HEV 2WD:</strong> 색상별 소량 소재 (즉시 출고)<br>
+                    - <strong>HEV 4WD:</strong> 화이트 펄 (8대), 메시브 그레이 (5대 미만), 레드/베이지 (1대)<br>
+                    - <strong>PHEV:</strong> 메시브 그레이 (2대), 화이트 펄 (1대)
                 </div>
             </div>
         </div>
 
-        <!-- [라브4 항목 5] -->
-        <div class="faq-item" data-category="서류/계약">
+        <!-- ==================== 3. 크라운 (CROWN) ==================== -->
+        <div class="faq-item" data-d1="crown" data-d2="트림/가격">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="badge-cat">라브4</span> Q. 타 브랜드 대비 토요타 하이브리드 선택 이유?</span>
+                <span><span class="badge-cat">CROWN</span> 크라운 트림 및 가격 안내</span>
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <ul>
-                        <li>등급과 상관없이 <span class="highlight">최신 상위 버전의 안전 사양이 전 트림 기본 탑재</span>되어 있습니다.</li>
-                        <li>유지비 및 차량 관리 측면에서 <span class="highlight">스트레스 제로(0)</span>를 경험하실 수 있습니다.</li>
-                    </ul>
+                    - <strong>2.5 하이브리드:</strong> 5,800만원대~<br>
+                    - <strong>2.4 터보 하이브리드:</strong> 6,600만원대~<br>
+                    * 세부 견적 및 프로모션은 문의 바랍니다.
                 </div>
             </div>
         </div>
 
-        <!-- [라브4 항목 6] -->
-        <div class="faq-item" data-category="출고/인도">
+        <div class="faq-item" data-d1="crown" data-d2="사양/컬러">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="badge-cat">라브4</span> Q. 플러그인 차 전기차 전용 구역 주차 시간?</span>
+                <span><span class="badge-cat">CROWN</span> 크라운 주요 사양 및 컬러</span>
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <strong>7시간 주차 가능하며, 00시~06시까지는 제외됩니다.</strong><br>
-                    (즉, 저녁 7시 주차 시 아침 8시까지 가능합니다.)
+                    듀얼 부스트 2.4 터보 하이브리드 엔진 적용, 바이톤 컬러 옵션 선택 가능.
                 </div>
             </div>
         </div>
 
-        <!-- [라브4 항목 7] -->
-        <div class="faq-item" data-category="사양/컬러">
+        <!-- ==================== 4. 캠리 (CAMRY) ==================== -->
+        <div class="faq-item" data-d1="camry" data-d2="트림/가격">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="badge-cat">라브4</span> Q. 디지털키로 물리키 없이 주행이 가능한가요?</span>
+                <span><span class="badge-cat">CAMRY</span> 캠리 하이브리드 가격 안내</span>
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
                 <div class="faq-answer-content">
-                    <span class="highlight">안됩니다.</span> 토요타 리모트 어플로만 차량의 원격시동, 에어컨 켜기, 차량 상태 확인, 도어 및 창문 제어까지 가능하며 <strong class="highlight">스마트키 없이는 주행 불가능</strong>합니다.
+                    캠리 하이브리드 XLE / XLE PREMIUM 트림 보유. 상세 가격 및 계약 상담 가능.
                 </div>
             </div>
         </div>
 
-        <!-- [라브4 항목 8] -->
-        <div class="faq-item" data-category="사양/컬러">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="badge-cat">라브4</span> Q. 플러그인 급속충전 속도 및 주행거리?</span>
-                <span class="arrow">▼</span>
-            </div>
-            <div class="faq-answer">
-                <div class="faq-answer-content">
-                    <strong>30분 충전으로 80%까지 충전</strong>되며, 100% 충전 시 <strong class="highlight">약 77km 주행이 가능</strong>합니다.
-                </div>
-            </div>
-        </div>
-
-        <!-- [라브4 항목 9] -->
-        <div class="faq-item" data-category="사양/컬러">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="badge-cat">라브4</span> Q. 운전자 모니터링 시스템(DMC) 작동 방식?</span>
-                <span class="arrow">▼</span>
-            </div>
-            <div class="faq-answer">
-                <div class="faq-answer-content">
-                    운전자 이상상태가 3초 이상 지속 시:
-                    <ul>
-                        <li><strong>1차 경고:</strong> 디스플레이 + 부저 1회</li>
-                        <li><strong>2차 경고:</strong> 6초 이상 지속 시 디스플레이 + 부저 지속</li>
-                    </ul>
-                    <p style="margin-top: 8px;">운전자 반응이 없는 상태 유지 시 경고는 지속되지만 <span class="highlight">제동 기능은 지원되지 않습니다.</span></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- [라브4 항목 10] -->
-        <div class="faq-item" data-category="즉시출고">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="badge-cat">라브4</span> 가장 빠르게 출고 가능한 차량 (6월 즉시 출고)</span>
-                <span class="arrow">▼</span>
-            </div>
-            <div class="faq-answer">
-                <div class="faq-answer-content">
-                    <strong>■ 하이브리드 2륜</strong>
-                    <ul>
-                        <li>색상별 5대 미만 (6월 출고 가능)</li>
-                    </ul>
-                    <br>
-                    <strong>■ 하이브리드 4륜</strong>
-                    <ul>
-                        <li>레드 / 베이지 시트: <strong>1대</strong></li>
-                        <li>메시브 그레이 / 블랙 시트: <strong>5대 미만</strong></li>
-                        <li>에베레스트 / 베이지 시트: <strong>1대</strong></li>
-                        <li>화이트 펄 / 블랙 시트: <strong>8대</strong></li>
-                    </ul>
-                    <br>
-                    <strong>■ 플러그인 하이브리드</strong>
-                    <ul>
-                        <li>메시브 그레이 / 블랙 시트: <strong>2대</strong></li>
-                        <li>화이트 펄 / 블랙 시트: <strong>1대</strong></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- 검색 결과 없음 표시 -->
+        <!-- 검색 결과 없음 메세지 -->
         <div class="no-result" id="noResult">
-            검색 결과가 없습니다.<br>다른 키워드로 검색해 보세요.
+            해당하는 카테고리의 정보가 없습니다.<br>다른 메뉴를 선택해보세요.
         </div>
 
     </div>
 
     <footer>
         <p>© 2026 김현우 과장. All rights reserved.</p>
-        <p style="margin-top: 4px;">본 페이지의 모든 안내사항은 참고용이며 세부 조건은 변동될 수 있습니다.</p>
     </footer>
 </div>
 
 <script>
-    // FAQ 토글 함수
+    // Depth 2 카테고리 정의 (Depth 1 선택에 따라 변경)
+    const depth2Map = {
+        'all': ['전체'],
+        'qna': ['전체', '서류/계약', '금융/결제', '출고/인도'],
+        'rav4': ['전체', '트림/가격', '사양/컬러', '전시/시승', '즉시출고'],
+        'crown': ['전체', '트림/가격', '사양/컬러', '전시/시승', '즉시출고'],
+        'camry': ['전체', '트림/가격', '사양/컬러', '전시/시승', '즉시출고'],
+        'alphard': ['전체', '트림/가격', '사양/컬러', '전시/시승', '즉시출고'],
+        'highlander': ['전체', '트림/가격', '사양/컬러', '전시/시승', '즉시출고'],
+        'sienna': ['전체', '트림/가격', '사양/컬러', '전시/시승', '즉시출고'],
+        'prius': ['전체', '트림/가격', '사양/컬러', '전시/시승', '즉시출고'],
+        'gr86': ['전체', '트림/가격', '사양/컬러', '전시/시승', '즉시출고']
+    };
+
+    let currentD1 = 'all';
+    let currentD2 = '전체';
+
+    // 초기화
+    window.onload = function() {
+        renderDepth2('all');
+        filterItems();
+    };
+
+    // Depth 1 선택 함수
+    function selectDepth1(d1Key) {
+        currentD1 = d1Key;
+        currentD2 = '전체';
+
+        // Depth 1 버튼 활성화
+        const d1Btns = document.querySelectorAll('.d1-btn');
+        d1Btns.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        // Depth 2 동적 생성 및 필터링
+        renderDepth2(d1Key);
+        filterItems();
+    }
+
+    // Depth 2 버튼 동적 생성
+    function renderDepth2(d1Key) {
+        const d2Container = document.getElementById('depth2Container');
+        d2Container.innerHTML = '';
+
+        const categories = depth2Map[d1Key] || ['전체', '트림/가격', '사양/컬러', '전시/시승', '즉시출고'];
+
+        categories.forEach((cat, index) => {
+            const btn = document.createElement('button');
+            btn.className = `d2-btn ${index === 0 ? 'active' : ''}`;
+            btn.innerText = cat;
+            btn.onclick = function() { selectDepth2(cat, this); };
+            d2Container.appendChild(btn);
+        });
+    }
+
+    // Depth 2 선택 함수
+    function selectDepth2(catName, btnElement) {
+        currentD2 = catName;
+
+        const d2Btns = document.querySelectorAll('.d2-btn');
+        d2Btns.forEach(b => b.classList.remove('active'));
+        btnElement.classList.add('active');
+
+        filterItems();
+    }
+
+    // 3-Depth 조합 필터링 핵심 로직
+    function filterItems() {
+        const items = document.querySelectorAll('.faq-item');
+        const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        let visibleCount = 0;
+
+        items.forEach(item => {
+            const itemD1 = item.getAttribute('data-d1');
+            const itemD2 = item.getAttribute('data-d2');
+            const text = item.innerText.toLowerCase();
+
+            // Depth 1 조건
+            const matchD1 = (currentD1 === 'all') || (itemD1 === currentD1);
+            // Depth 2 조건
+            const matchD2 = (currentD2 === '전체') || (itemD2 === currentD2);
+            // 검색어 조건
+            const matchSearch = query === '' || text.includes(query);
+
+            if (matchD1 && matchD2 && matchSearch) {
+                item.style.display = 'block';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // 결과 없음 안내
+        document.getElementById('noResult').style.display = (visibleCount === 0) ? 'block' : 'none';
+    }
+
+    // FAQ 토글 (아코디언)
     function toggleFaq(element) {
         const item = element.parentElement;
         const answer = item.querySelector('.faq-answer');
         const isOpen = item.classList.contains('active');
 
-        // 다른 열려있는 항목 닫기
         document.querySelectorAll('.faq-item').forEach(i => {
             i.classList.remove('active');
             i.querySelector('.faq-answer').style.maxHeight = null;
@@ -654,54 +662,8 @@
         }
     }
 
-    // 카테고리 필터링
-    function filterCategory(category) {
-        // 버튼 활성화 스타일
-        document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
-
-        const items = document.querySelectorAll('.faq-item');
-        let visibleCount = 0;
-
-        items.forEach(item => {
-            if (category === 'all' || item.getAttribute('data-category') === category) {
-                item.style.display = 'block';
-                visibleCount++;
-            } else {
-                item.style.display = 'none';
-            }
-        });
-
-        checkNoResult(visibleCount);
-    }
-
-    // 실시간 검색 기능
-    document.getElementById('searchInput').addEventListener('input', function(e) {
-        const query = e.target.value.toLowerCase().trim();
-        const items = document.querySelectorAll('.faq-item');
-        let visibleCount = 0;
-
-        // 검색 시 카테고리 버튼 초기화
-        document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.tag-btn')[0].classList.add('active');
-
-        items.forEach(item => {
-            const text = item.innerText.toLowerCase();
-            if (text.includes(query)) {
-                item.style.display = 'block';
-                visibleCount++;
-            } else {
-                item.style.display = 'none';
-            }
-        });
-
-        checkNoResult(visibleCount);
-    });
-
-    function checkNoResult(count) {
-        const noResult = document.getElementById('noResult');
-        noResult.style.display = count === 0 ? 'block' : 'none';
-    }
+    // 실시간 검색
+    document.getElementById('searchInput').addEventListener('input', filterItems);
 </script>
 
 </body>
