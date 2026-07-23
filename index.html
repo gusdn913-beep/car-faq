@@ -3,18 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚗 신차 구매 가이드 & FAQ | 김현우 과장 </title>
+    <title>🚗 신차 구매 가이드 & FAQ | 김현우 과장</title>
 
     <!-- Open Graph / 카카오톡 미리보기 카드 설정 -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="🚗 김현우 과장 | 신차 구매 안내 FAQ">
-    <meta property="og:description" content="계약 서류, 결제/금융 조건, 출고 및 탁송 일정까지 궁금한 점을 한눈에 확인하세요!">
-    <!-- 
-      [이미지 설정 안내]
-      GitHub 저장소에 profile.jpg 또는 thumb.jpg 등의 이미지를 업로드한 후 
-      아래 content 주소를 본인 GitHub Pages 이미지 전체 URL로 변경하세요.
-      예: https://your-id.github.io/car-faq/profile.jpg
-    -->
+    <meta property="og:description" content="계약 서류, 결제/금융 조건, 출고 및 라브4 상세 정보까지 한눈에 확인하세요!">
     <meta property="og:image" content="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1200&auto=format&fit=crop">
     <meta property="og:url" content="https://your-id.github.io/car-faq/">
 
@@ -23,6 +17,7 @@
             --primary-color: #1e3a8a;
             --primary-light: #eff6ff;
             --accent-color: #2563eb;
+            --highlight-red: #eb0a1e;
             --text-dark: #1f2937;
             --text-muted: #6b7280;
             --border-color: #e5e7eb;
@@ -60,7 +55,7 @@
             text-align: center;
         }
 
-        .badge {
+        .badge-header {
             display: inline-block;
             background-color: rgba(255, 255, 255, 0.2);
             padding: 4px 12px;
@@ -142,6 +137,11 @@
             overflow-x: auto;
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .category-tags::-webkit-scrollbar {
+            display: none;
         }
 
         .tag-btn {
@@ -153,6 +153,7 @@
             color: var(--text-muted);
             cursor: pointer;
             transition: all 0.2s;
+            flex-shrink: 0;
         }
 
         .tag-btn.active {
@@ -197,6 +198,16 @@
             margin-right: 6px;
         }
 
+        .badge-cat {
+            font-size: 0.75rem;
+            background-color: #f3f4f6;
+            color: #4b5563;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+            font-weight: normal;
+        }
+
         .faq-question .arrow {
             font-size: 0.8rem;
             color: var(--text-muted);
@@ -223,7 +234,44 @@
             padding: 16px;
             font-size: 0.92rem;
             color: #374151;
-            white-space: pre-line;
+        }
+
+        .faq-answer-content ul {
+            padding-left: 20px;
+            margin-top: 6px;
+        }
+
+        .faq-answer-content li {
+            margin-bottom: 4px;
+        }
+
+        /* 가격표 전용 테이블 스타일 */
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            background-color: #ffffff;
+        }
+
+        .price-table th, .price-table td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: center;
+        }
+
+        .price-table th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+        }
+
+        .price-table td:nth-child(2), .price-table td:nth-child(3) {
+            text-align: right;
+        }
+
+        .highlight {
+            color: var(--highlight-red);
+            font-weight: bold;
         }
 
         .no-result {
@@ -248,9 +296,9 @@
 <div class="container">
     <!-- 헤더 영역 -->
     <header>
-        <span class="badge">공식 카마스터</span>
-        <h1>🚗 OOO 카마스터 FAQ</h1>
-        <p>신차 계약부터 인도까지! 자주 묻는 질문 모음</p>
+        <span class="badge-header">공식 카마스터</span>
+        <h1>🚗 김현우 과장 FAQ</h1>
+        <p>신차 계약부터 인도 및 라브4 상세 정보까지 한눈에!</p>
 
         <!-- 빠르게 연락하기 버튼 -->
         <div class="contact-box">
@@ -271,7 +319,7 @@
 
     <!-- 검색창 -->
     <div class="search-container">
-        <input type="text" id="searchInput" class="search-box" placeholder="🔍 궁금한 키워드를 검색해보세요 (예: 서류, 할부)">
+        <input type="text" id="searchInput" class="search-box" placeholder="🔍 궁금한 키워드를 검색해보세요 (예: 서류, 가격, 충전)">
     </div>
 
     <!-- 카테고리 필터 -->
@@ -280,6 +328,10 @@
         <button class="tag-btn" onclick="filterCategory('서류/계약')">📝 서류/계약</button>
         <button class="tag-btn" onclick="filterCategory('금융/결제')">💳 금융/결제</button>
         <button class="tag-btn" onclick="filterCategory('출고/인도')">🚙 출고/인도</button>
+        <button class="tag-btn" onclick="filterCategory('트림/가격')">🏷️ 트림/가격</button>
+        <button class="tag-btn" onclick="filterCategory('사양/컬러')">🎨 사양/컬러</button>
+        <button class="tag-btn" onclick="filterCategory('전시/시승')">📅 전시/시승</button>
+        <button class="tag-btn" onclick="filterCategory('즉시출고')">📦 즉시출고</button>
     </div>
 
     <!-- Q&A 목록 -->
@@ -292,13 +344,13 @@
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
-                <div class="faq-answer-content">개인명의 계약 기준 필수 준비 서류는 다음과 같습니다.
-
-1. **신분증 복사본** (운전면허증 또는 주민등록증)
-2. **계약금** (본인 명의 계좌 입금)
-3. **주민등록등본 1부** (공동명의 진행 시 필요)
-
-* 법인 및 사업자 명의 계약 시 필요한 서류는 별도로 안내해 드립니다.</div>
+                <div class="faq-answer-content">
+                    개인명의 계약 기준 필수 준비 서류는 다음과 같습니다.<br><br>
+                    1. <strong>신분증 복사본</strong> (운전면허증 또는 주민등록증)<br>
+                    2. <strong>계약금</strong> (본인 명의 계좌 입금)<br>
+                    3. <strong>주민등록등본 1부</strong> (공동명의 진행 시 필요)<br><br>
+                    * 법인 및 사업자 명의 계약 시 필요한 서류는 별도로 안내해 드립니다.
+                </div>
             </div>
         </div>
 
@@ -309,10 +361,11 @@
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
-                <div class="faq-answer-content">차량 잔금 결제 시 신용카드를 사용하시면 최대 캐시백 혜택을 받으실 수 있습니다.
-
-- 결제 전 제휴 금융사/카드사를 통한 이벤트 등록이 필수입니다.
-- 일시불 및 할부 비율에 따라 캐시백율이 달라지므로, 결제 2~3일 전 말씀해주시면 가장 혜택이 높은 조건으로 안내해 드립니다.</div>
+                <div class="faq-answer-content">
+                    차량 잔금 결제 시 신용카드를 사용하시면 최대 캐시백 혜택을 받으실 수 있습니다.<br><br>
+                    - 결제 전 제휴 금융사/카드사를 통한 이벤트 등록이 필수입니다.<br>
+                    - 일시불 및 할부 비율에 따라 캐시백율이 달라지므로, 결제 2~3일 전 말씀해주시면 가장 혜택이 높은 조건으로 안내해 드립니다.
+                </div>
             </div>
         </div>
 
@@ -323,10 +376,11 @@
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
-                <div class="faq-answer-content">차량 생산 및 출고 일정은 매월 초 전산 배정 결과에 따라 안내드립니다.
-
-- 계약 순번 및 옵션/색상 조합에 따라 납기일이 변동될 수 있습니다.
-- 생산이 완료되면 담당 카마스터가 직접 연락드려 정확한 인수 예정일을 조율해 드립니다.</div>
+                <div class="faq-answer-content">
+                    차량 생산 및 출고 일정은 매월 초 전산 배정 결과에 따라 안내드립니다.<br><br>
+                    - 계약 순번 및 옵션/색상 조합에 따라 납기일이 변동될 수 있습니다.<br>
+                    - 생산이 완료되면 담당 카마스터가 직접 연락드려 정확한 인수 예정일을 조율해 드립니다.
+                </div>
             </div>
         </div>
 
@@ -337,11 +391,234 @@
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
-                <div class="faq-answer-content">차량이 썬팅 샵(시공점)으로 탁송되면 전문 검수관과 담당자가 함께 신차 검수를 진행합니다.
+                <div class="faq-answer-content">
+                    차량이 썬팅 샵(시공점)으로 탁송되면 전문 검수관과 담당자가 함께 신차 검수를 진행합니다.<br><br>
+                    1. 외관 도장 상태, 단차, 내부 가죽 시트 inspection<br>
+                    2. 전자 장비 및 스마트키 작동 여부 점검<br>
+                    3. 이상 없을 시 검수 사진 전송 후 협의된 틴팅(썬팅) 및 블랙박스 작업을 진행합니다.
+                </div>
+            </div>
+        </div>
 
-1. 외관 도장 상태, 단차, 내부 가죽 시트 inspection
-2. 전자 장비 및 스마트키 작동 여부 점검
-3. 이상 없을 시 검수 사진 전송 후 협의된 틴팅(썬팅) 및 블랙박스 작업을 진행합니다.</div>
+        <!-- [라브4 항목 1] -->
+        <div class="faq-item" data-category="트림/가격">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span><span class="badge-cat">라브4</span> 라브4 풀체인지 트림 및 가격 안내</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p style="margin-bottom: 8px;">*(단위: 만원)*</p>
+                    <table class="price-table">
+                        <thead>
+                            <tr>
+                                <th>트림</th>
+                                <th>차량가격</th>
+                                <th>세금포함 초가가격</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>하이브리드 2륜</td>
+                                <td>4,927</td>
+                                <td>5,263</td>
+                            </tr>
+                            <tr>
+                                <td>하이브리드 4륜</td>
+                                <td>5,746</td>
+                                <td>6,139</td>
+                            </tr>
+                            <tr>
+                                <td>플러그인 4륜</td>
+                                <td>6,160</td>
+                                <td>6,583</td>
+                            </tr>
+                            <tr>
+                                <td>GR-S 스포츠</td>
+                                <td>6,180</td>
+                                <td>6,604</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- [라브4 항목 2] -->
+        <div class="faq-item" data-category="사양/컬러">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span><span class="badge-cat">라브4</span> 편의사양 차이 & 바디 컬러</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <strong>[공통 기본 사양]</strong>
+                    <ul>
+                        <li>원격제어, e-call, 안드로이드 오토 및 애플 카플레이 (유무선 지원)</li>
+                        <li>핸들 열선, 레인 센서, 디스플레이, 운전자 모니터링 카메라, PDA</li>
+                        <li>12.9인치 디스플레이, 12.3인치 계기판</li>
+                    </ul>
+                    <br>
+                    <strong>[트림별 추가 사양]</strong>
+                    <ul>
+                        <li><strong>2륜:</strong> 앞좌석 열선</li>
+                        <li><strong>4륜 및 플러그인 4륜:</strong> 헤드업 디스플레이(HUD), 파노라믹 뷰(어라운드 뷰), 45W C타입 급속 충전 포트</li>
+                        <li><strong>GR-S 스포츠:</strong> 전용튜닝파츠(퍼포먼스댐퍼, 보강파츠, 전용서스펜션튜닝), 경량알로이휠</li>
+                    </ul>
+                    <br>
+                    <strong>[바디 컬러 안내]</strong>
+                    <ul>
+                        <li><strong>깔끔한 모노톤:</strong> 화이트 펄, 슈퍼 화이트, 블랙, 메시브 그레이</li>
+                        <li><strong>오프로드 감성:</strong> 어반락, 아방가르드브론즈, 에베레스트, 다크 블루, 레드</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- [라브4 항목 3] -->
+        <div class="faq-item" data-category="전시/시승">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span><span class="badge-cat">라브4</span> 전시 및 시승 차량 일정</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <strong>📅 6월 16일부터 볼 수 있는 차량 (서초전시장)</strong>
+                    <ul>
+                        <li>4륜: 아방가르드 브론즈 / 블랙 시트</li>
+                        <li>플러그인: 메시브 그레이 / 블랙 시트</li>
+                    </ul>
+                    <br>
+                    <strong>🚘 6월 22일부터 볼 수 있는 차량 (시승차량)</strong>
+                    <ul>
+                        <li>2륜: 슈퍼 화이트 / 블랙 시트</li>
+                        <li>4륜: 메시브 그레이 / 네츄럴 베이지 시트</li>
+                        <li>플러그인: 화이트펄 / 블랙 시트</li>
+                        <li>GR-S: 블랙&화이트 / 블랙 시트</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- [라브4 항목 4] -->
+        <div class="faq-item" data-category="서류/계약">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span><span class="badge-cat">라브4</span> Q. 어떤 등급이 가장 좋은 선택일까요?</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <ul>
+                        <li><strong>2륜 하이브리드:</strong> 극강의 연비와 합리적인 가격을 선호하시는 분 (안전 사양은 전 등급 동일)</li>
+                        <li><strong>4륜 하이브리드:</strong> 옵션 및 편의사양이 중요한 패밀리카를 선호하시는 분</li>
+                        <li><strong>플러그인 하이브리드:</strong> 집이나 회사에 전기충전소가 구비되어 있고, 고성능 차량을 선호하시는 분</li>
+                        <li><strong>GR-S 플러그인 하이브리드:</strong> 운전의 재미를 느낄 수 있는 스포티한 주행 감성과 차별화된 디자인을 선호하시는 분</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- [라브4 항목 5] -->
+        <div class="faq-item" data-category="서류/계약">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span><span class="badge-cat">라브4</span> Q. 타 브랜드 대비 토요타 하이브리드 선택 이유?</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <ul>
+                        <li>등급과 상관없이 <span class="highlight">최신 상위 버전의 안전 사양이 전 트림 기본 탑재</span>되어 있습니다.</li>
+                        <li>유지비 및 차량 관리 측면에서 <span class="highlight">스트레스 제로(0)</span>를 경험하실 수 있습니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- [라브4 항목 6] -->
+        <div class="faq-item" data-category="출고/인도">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span><span class="badge-cat">라브4</span> Q. 플러그인 차 전기차 전용 구역 주차 시간?</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <strong>7시간 주차 가능하며, 00시~06시까지는 제외됩니다.</strong><br>
+                    (즉, 저녁 7시 주차 시 아침 8시까지 가능합니다.)
+                </div>
+            </div>
+        </div>
+
+        <!-- [라브4 항목 7] -->
+        <div class="faq-item" data-category="사양/컬러">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span><span class="badge-cat">라브4</span> Q. 디지털키로 물리키 없이 주행이 가능한가요?</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <span class="highlight">안됩니다.</span> 토요타 리모트 어플로만 차량의 원격시동, 에어컨 켜기, 차량 상태 확인, 도어 및 창문 제어까지 가능하며 <strong class="highlight">스마트키 없이는 주행 불가능</strong>합니다.
+                </div>
+            </div>
+        </div>
+
+        <!-- [라브4 항목 8] -->
+        <div class="faq-item" data-category="사양/컬러">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span><span class="badge-cat">라브4</span> Q. 플러그인 급속충전 속도 및 주행거리?</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <strong>30분 충전으로 80%까지 충전</strong>되며, 100% 충전 시 <strong class="highlight">약 77km 주행이 가능</strong>합니다.
+                </div>
+            </div>
+        </div>
+
+        <!-- [라브4 항목 9] -->
+        <div class="faq-item" data-category="사양/컬러">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span><span class="badge-cat">라브4</span> Q. 운전자 모니터링 시스템(DMC) 작동 방식?</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    운전자 이상상태가 3초 이상 지속 시:
+                    <ul>
+                        <li><strong>1차 경고:</strong> 디스플레이 + 부저 1회</li>
+                        <li><strong>2차 경고:</strong> 6초 이상 지속 시 디스플레이 + 부저 지속</li>
+                    </ul>
+                    <p style="margin-top: 8px;">운전자 반응이 없는 상태 유지 시 경고는 지속되지만 <span class="highlight">제동 기능은 지원되지 않습니다.</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- [라브4 항목 10] -->
+        <div class="faq-item" data-category="즉시출고">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span><span class="badge-cat">라브4</span> 가장 빠르게 출고 가능한 차량 (6월 즉시 출고)</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <strong>■ 하이브리드 2륜</strong>
+                    <ul>
+                        <li>색상별 5대 미만 (6월 출고 가능)</li>
+                    </ul>
+                    <br>
+                    <strong>■ 하이브리드 4륜</strong>
+                    <ul>
+                        <li>레드 / 베이지 시트: <strong>1대</strong></li>
+                        <li>메시브 그레이 / 블랙 시트: <strong>5대 미만</strong></li>
+                        <li>에베레스트 / 베이지 시트: <strong>1대</strong></li>
+                        <li>화이트 펄 / 블랙 시트: <strong>8대</strong></li>
+                    </ul>
+                    <br>
+                    <strong>■ 플러그인 하이브리드</strong>
+                    <ul>
+                        <li>메시브 그레이 / 블랙 시트: <strong>2대</strong></li>
+                        <li>화이트 펄 / 블랙 시트: <strong>1대</strong></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -353,7 +630,7 @@
     </div>
 
     <footer>
-        <p>© 2026 OOO 카마스터. All rights reserved.</p>
+        <p>© 2026 김현우 과장. All rights reserved.</p>
         <p style="margin-top: 4px;">본 페이지의 모든 안내사항은 참고용이며 세부 조건은 변동될 수 있습니다.</p>
     </footer>
 </div>
